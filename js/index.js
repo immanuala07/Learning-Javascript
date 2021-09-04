@@ -1,22 +1,29 @@
-// JS code for debounce
-const debounce = (fn, delay) => {
-	let timeoutID;
+// JS code for throttling
+// Throttled functions execute on the first action/event and then wait a configurable duration before being eligible to fire again.
+// All the actions gets ignored after the first action / event.
+const throttle = (fn, delay) => {
+	let lastTime = 0;
 
 	// Higher order function which passes ...args which is PointerEvent
-	return function (...args) {
+	return (...args) => {
 
-		// If the timeoutID exist then clear the timeout and set the timeout again in the below code
-		if (timeoutID) {
-			clearTimeout(timeoutID);
+		const nowTime = new Date().getTime();
+
+		// This conditon is to ignore the button clicks in between the delay time.
+		if (nowTime - lastTime < delay) {
+			return;
 		}
 
-		// setTimeout based on the delay passed on the function and call the  event handler function by passing the PointerEvent
-		timeoutID = setTimeout(() => {
-			fn(...args)
-		}, delay);
+		// Assign the nowTime as lastTime 
+		lastTime = nowTime;
+
+		// Only the first click of button is recognized till the end of the delay.
+		// If there are any clcik in betweeen the delay are not recognized.
+		return fn(...args);
 	};
 };
 
-document.getElementById("buttonId").addEventListener("click", debounce(() => {
+document.getElementById("buttonId").addEventListener("click", throttle(() => {
+	document.getElementById("demo").innerHTML = "Button Clicked..!";
 	console.log("Button Clicked..!");
-}, 2000));
+}, 5000));
