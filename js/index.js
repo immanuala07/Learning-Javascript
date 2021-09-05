@@ -19,5 +19,6 @@ const debounce = (fn, delay) => {
 };
 
 document.getElementById("buttonId").addEventListener("click", debounce(() => {
+	document.getElementById("paragraphId").innerHTML = "Button Clicked..!";
 	console.log("Button Clicked..!");
 }, 2000));
