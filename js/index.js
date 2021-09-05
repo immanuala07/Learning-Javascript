@@ -24,6 +24,6 @@ const throttle = (fn, delay) => {
 };
 
 document.getElementById("buttonId").addEventListener("click", throttle(() => {
-	document.getElementById("demo").innerHTML = "Button Clicked..!";
+	document.getElementById("paragraphId").innerHTML = "Button Clicked..!";
 	console.log("Button Clicked..!");
 }, 5000));
